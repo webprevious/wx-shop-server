@@ -5,8 +5,11 @@ let ObjectId = Schema.Types.ObjectId
 const userSchema = new Schema({
   UserId: ObjectId,
   userName: String,
-  phone: { unique: true, type: String },
-  avatorUrl: String,
+  gender: String,
+  city: String,
+  province: String,
+  country: String,
+  avatarUrl: String,
   createAt: { type: Date, default: Date.now() }
 })
 
