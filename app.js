@@ -8,7 +8,12 @@ const logger = require('koa-logger')
 const cors = require('koa2-cors')
 const { mongodb } = require('./mongo')
 
-const index = require('./routes/wxcustom/user/index')
+// 引入客户端微信小程序路由
+const wxUser = require('./routes/wxcustom/user/index')
+
+// 引入管理端路由
+const manCarousel = require('./routes/manage/adcarousel/index')
+const manCategory = require('./routes/manage/goodscategory/index')
 
 // 绑定错误处理
 onerror(app)
@@ -39,8 +44,12 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-// routes
-app.use(index.routes(), index.allowedMethods())
+// 注册微信小程序端路由
+app.use(wxUser.routes(), wxUser.allowedMethods())
+
+// 注册管理端路由
+app.use(manCarousel.routes(), manCarousel.allowedMethods())
+app.use(manCategory.routes(), manCategory.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

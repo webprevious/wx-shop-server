@@ -1,13 +1,13 @@
 const router = require('koa-router')()
 const mongoose = require('mongoose')
 
-router.post('/register', async (ctx, next) => {
+router.post('/addGoodsCateory', async (ctx, next) => {
   console.log(ctx.request.body)
   // 获取modle
-  const User = mongoose.model('User')
+  const goodsCategory = mongoose.model('goodsCategory')
   // 创建数据库操作实例
-  let newUser = new User(ctx.request.body)
-  await newUser.save().then(() => {
+  let newgoodsCategory = new goodsCategory(ctx.request.body)
+  await newgoodsCategory.save().then(() => {
     ctx.body = {
       code: 1,
       data: {}
