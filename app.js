@@ -10,7 +10,7 @@ const { mongodb } = require('./mongo')
 
 const index = require('./routes/wxcustom/user/index')
 
-// error handler
+// 绑定错误处理
 onerror(app)
 
 // 数据库连接
