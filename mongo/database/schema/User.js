@@ -4,7 +4,7 @@ let ObjectId = Schema.Types.ObjectId
 
 const userSchema = new Schema({
   UserId: ObjectId,
-  userName: String,
+  nickName: String,
   gender: String,
   city: String,
   province: String,

@@ -8,7 +8,7 @@ const logger = require('koa-logger')
 const cors = require('koa2-cors')
 const { mongodb } = require('./mongo')
 
-const index = require('./routes/index')
+const index = require('./routes/wxcustom/user/index')
 
 // error handler
 onerror(app)
