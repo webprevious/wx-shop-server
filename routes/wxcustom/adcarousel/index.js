@@ -1,16 +1,14 @@
 const router = require('koa-router')()
 const mongoose = require('mongoose')
 
-router.post('/addAdCarousel', async (ctx, next) => {
-  console.log(ctx.request.body)
+router.get('/getAdCarousel', async (ctx, next) => {
   // 获取modle
   const AdCarousel = mongoose.model('AdCarousel')
-  // 存操作需要创建保存实例，存入字段需要跟前端传入对应
-  let newAdCarousel = new AdCarousel(ctx.request.body)
-  await newAdCarousel.save().then(() => {
+  // 直接使用model进行查询，查询不需要创建保存实例
+  await AdCarousel.find().then(result => {
     ctx.body = {
       code: 1,
-      data: {}
+      data: result
     }
   }).catch((err) => {
     ctx.body = {

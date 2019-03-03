@@ -10,6 +10,8 @@ const { mongodb } = require('./mongo')
 
 // 引入客户端微信小程序路由
 const wxUser = require('./routes/wxcustom/user/index')
+const wxCarousel = require('./routes/wxcustom/adcarousel/index')
+const wxCategory = require('./routes/wxcustom/goodscategory/index')
 
 // 引入管理端路由
 const manCarousel = require('./routes/manage/adcarousel/index')
@@ -46,6 +48,8 @@ app.use(async (ctx, next) => {
 
 // 注册微信小程序端路由
 app.use(wxUser.routes(), wxUser.allowedMethods())
+app.use(wxCarousel.routes(), wxCarousel.allowedMethods())
+app.use(wxCategory.routes(), wxCategory.allowedMethods())
 
 // 注册管理端路由
 app.use(manCarousel.routes(), manCarousel.allowedMethods())
