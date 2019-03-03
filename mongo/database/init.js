@@ -48,5 +48,8 @@ function connectMongo() {
 
 // 一次性引入所有Schema文件
 exports.initSchemas = () =>{
+  // resolve(__dirname,'./schema/','**/*.js') 返回值是一个由传入的多个参数组成的路径，这里代表的意思就是schema中所有文件，除了以.点开头的
+  // __dirname在node中就是指文件当前路径的意思
+  // glob的作用就是返回一个由匹配规则匹配到的所有文件
   glob.sync(resolve(__dirname,'./schema/','**/*.js')).forEach(require)
 }
