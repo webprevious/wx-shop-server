@@ -2,7 +2,6 @@ const router = require('koa-router')()
 const mongoose = require('mongoose')
 
 router.post('/addAdCarousel', async (ctx, next) => {
-  console.log(ctx.request.body)
   // 获取modle
   const AdCarousel = mongoose.model('AdCarousel')
   // 存操作需要创建保存实例，存入字段需要跟前端传入对应

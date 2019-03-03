@@ -2,7 +2,6 @@ const router = require('koa-router')()
 const mongoose = require('mongoose')
 
 router.post('/register', async (ctx, next) => {
-  console.log(ctx.request.body)
   // 获取modle
   const User = mongoose.model('User')
   // 创建数据库操作实例
