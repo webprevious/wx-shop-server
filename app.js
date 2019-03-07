@@ -18,6 +18,9 @@ const wxPublishGoods = require('./routes/wxcustom/publishgoods/index')
 const manCarousel = require('./routes/manage/adcarousel/index')
 const manCategory = require('./routes/manage/goodscategory/index')
 
+// 引入公共路由
+const uploadFile = require('./routes/commom/upload/index')
+
 // 绑定错误处理
 onerror(app)
 
@@ -56,6 +59,9 @@ app.use(wxPublishGoods.routes(), wxPublishGoods.allowedMethods())
 // 注册管理端路由
 app.use(manCarousel.routes(), manCarousel.allowedMethods())
 app.use(manCategory.routes(), manCategory.allowedMethods())
+
+// 注册公共路由
+app.use(uploadFile.routes(), uploadFile.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
