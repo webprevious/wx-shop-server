@@ -4,3 +4,5 @@
 ##### npm install
 
 ##### npm run dev
+
+##### 苹果电脑mongo启动报错解决办法mongod --dbpath ~/Documents/mongo/db
