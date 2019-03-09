@@ -6,10 +6,9 @@ router.post('/addGoodsCateory', async (ctx, next) => {
   const goodsCategory = mongoose.model('goodsCategory')
   // create存操作方法不需要创建保存实例，存入字段需要跟前端传入对应
   await goodsCategory.create(ctx.request.body).then(res => {
-    console.log(res)
     ctx.body = {
       code: 1,
-      data: {}
+      data: res
     }
   }).catch(err => {
     ctx.body = {
