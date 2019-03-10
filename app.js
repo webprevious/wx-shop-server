@@ -13,6 +13,7 @@ const wxUser = require('./routes/wxcustom/user/index')
 const wxCarousel = require('./routes/wxcustom/adcarousel/index')
 const wxCategory = require('./routes/wxcustom/goodscategory/index')
 const wxPublishGoods = require('./routes/wxcustom/publishgoods/index')
+const wxGoodsBBS = require('./routes/wxcustom/goodsbbs/index')
 
 // 引入管理端路由
 const manCarousel = require('./routes/manage/adcarousel/index')
@@ -55,6 +56,7 @@ app.use(wxUser.routes(), wxUser.allowedMethods())
 app.use(wxCarousel.routes(), wxCarousel.allowedMethods())
 app.use(wxCategory.routes(), wxCategory.allowedMethods())
 app.use(wxPublishGoods.routes(), wxPublishGoods.allowedMethods())
+app.use(wxGoodsBBS.routes(), wxGoodsBBS.allowedMethods())
 
 // 注册管理端路由
 app.use(manCarousel.routes(), manCarousel.allowedMethods())
