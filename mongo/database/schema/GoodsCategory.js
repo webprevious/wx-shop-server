@@ -8,4 +8,4 @@ const CategorySchema = new Schema({
   createAt: { type: Date, default: Date.now() }
 })
 
-mongoose.model('goodsCategory', CategorySchema)
+mongoose.model('GoodsCategory', CategorySchema)
