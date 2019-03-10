@@ -3,9 +3,9 @@ const mongoose = require('mongoose')
 
 router.post('/addGoodsCateory', async (ctx, next) => {
   // 获取modle
-  const goodsCategory = mongoose.model('goodsCategory')
+  const GoodsCategory = mongoose.model('GoodsCategory')
   // create存操作方法不需要创建保存实例，存入字段需要跟前端传入对应
-  await goodsCategory.create(ctx.request.body).then(res => {
+  await GoodsCategory.create(ctx.request.body).then(res => {
     ctx.body = {
       code: 1,
       data: res
