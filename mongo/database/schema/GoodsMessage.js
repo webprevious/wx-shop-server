@@ -21,4 +21,5 @@ const GoodsMessageSchema = new Schema({
   goodsBuyer: {type: String}
 })
 
+// mongoose.model('PublishGoods', GoodsMessageSchema)
 mongoose.model('PublishGoods', GoodsMessageSchema)
