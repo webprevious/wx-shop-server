@@ -176,6 +176,24 @@ router.post('/getMyPublishOrSale', async ctx => {
   }
 })
 
+// 取得登陆者买到的接口
+router.post('/getMyBuy', async ctx => {
+  let GoodsMessage = mongoose.model('GoodsMessage')
+  let reqData = ctx.request.body
+  await GoodsMessage.find({goodsBuyer: reqData.userId}).then(res => {
+    ctx.body = {
+      code: 1,
+      data: res
+    }
+  }).catch(err => {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
+  })
+})
+
+
 
 module.exports = router
 

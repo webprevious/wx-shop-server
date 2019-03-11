@@ -109,6 +109,4 @@ router.get('/isSignedToday', async (ctx, next) => {
   })
 })
 
-// 获取登录者，买到的、发布的、收藏的、卖出的 
-
 module.exports = router
