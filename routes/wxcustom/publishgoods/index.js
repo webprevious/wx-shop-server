@@ -105,6 +105,10 @@ router.post('/buyGoods', async ctx => {
   })
 })
 
+// 根据物品状态和发布者id计算出我发布的物品、我卖出的物品
+router.post('')
+
+
 module.exports = router
 
 
