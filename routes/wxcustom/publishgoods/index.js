@@ -88,6 +88,23 @@ router.get('/getGoodsDetailById', async ctx => {
   })
 })
 
+// 购买物品接口
+router.post('/buyGoods', async ctx => {
+  let GoodsMessage = mongoose.model('GoodsMessage')
+  let reqData = ctx.request.body
+  await GoodsMessage.findByIdAndUpdate(reqData.goodsId, { goodsBuyer: reqData.buyer, goodsStatus: 'be_buy', buyAt: Date.now()}).then(res => {
+    ctx.body = {
+      code: 1,
+      data: res
+    }
+  }).catch(err => {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
+  })
+})
+
 module.exports = router
 
 
