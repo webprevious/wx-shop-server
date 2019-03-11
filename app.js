@@ -18,6 +18,7 @@ const wxGoodsBBS = require('./routes/wxcustom/goodsbbs/index')
 // 引入管理端路由
 const manCarousel = require('./routes/manage/adcarousel/index')
 const manCategory = require('./routes/manage/goodscategory/index')
+const manVerifyGoods = require('./routes/manage/goodsverify/index')
 
 // 引入公共路由
 const uploadFile = require('./routes/commom/upload/index')
@@ -61,6 +62,7 @@ app.use(wxGoodsBBS.routes(), wxGoodsBBS.allowedMethods())
 // 注册管理端路由
 app.use(manCarousel.routes(), manCarousel.allowedMethods())
 app.use(manCategory.routes(), manCategory.allowedMethods())
+app.use(manVerifyGoods.routes(), manVerifyGoods.allowedMethods())
 
 // 注册公共路由
 app.use(uploadFile.routes(), uploadFile.allowedMethods())
