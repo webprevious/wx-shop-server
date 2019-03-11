@@ -17,7 +17,8 @@ const GoodsMessageSchema = new Schema({
   goodsConnPhone: String,
   goodsStatus: { default: 'wait_verify', type: String},
   goodsViewTimes: { default: 0, type: Number },
-  publishAt: { type: Date, default: Date.now() }
+  publishAt: { type: Date, default: Date.now() },
+  goodsBuyer: {type: String}
 })
 
 mongoose.model('PublishGoods', GoodsMessageSchema)
