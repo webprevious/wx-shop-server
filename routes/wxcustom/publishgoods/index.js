@@ -92,10 +92,29 @@ router.get('/getGoodsDetailById', async ctx => {
 router.post('/buyGoods', async ctx => {
   let GoodsMessage = mongoose.model('GoodsMessage')
   let reqData = ctx.request.body
-  await GoodsMessage.findByIdAndUpdate(reqData.goodsId, { goodsBuyer: reqData.buyer, goodsStatus: 'be_sale', buyAt: Date.now()}).then(res => {
-    ctx.body = {
-      code: 1,
-      data: res
+  await GoodsMessage.findById(reqData.goodsId).then(async res => {
+    // 自己不能购买自己的
+    if (res.publisherId === reqData.buyer) {
+      ctx.body = {
+        code: 0,
+        data: '自己不能购买自己的物品'
+      }
+      return false
+    } else {
+      res.goodsBuyer = reqData.buyer
+      res.goodsStatus = 'be_sale'
+      res.buyAt =  Date.now()
+      await res.save().then(res => {
+        ctx.body = {
+          code: 1,
+          data: res
+        }
+      }).catch(err => {
+        ctx.body = {
+          code: 0,
+          data: err
+        }
+      })
     }
   }).catch(err => {
     ctx.body = {
