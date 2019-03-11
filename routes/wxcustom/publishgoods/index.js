@@ -92,7 +92,7 @@ router.get('/getGoodsDetailById', async ctx => {
 router.post('/buyGoods', async ctx => {
   let GoodsMessage = mongoose.model('GoodsMessage')
   let reqData = ctx.request.body
-  await GoodsMessage.findByIdAndUpdate(reqData.goodsId, { goodsBuyer: reqData.buyer, goodsStatus: 'be_buy', buyAt: Date.now()}).then(res => {
+  await GoodsMessage.findByIdAndUpdate(reqData.goodsId, { goodsBuyer: reqData.buyer, goodsStatus: 'be_sale', buyAt: Date.now()}).then(res => {
     ctx.body = {
       code: 1,
       data: res
@@ -106,7 +106,56 @@ router.post('/buyGoods', async ctx => {
 })
 
 // 根据物品状态和发布者id计算出我发布的物品、我卖出的物品
-router.post('')
+router.post('/getMyPublishOrSale', async ctx => {
+  let reqData = ctx.request.body
+  let GoodsMessage = mongoose.model('GoodsMessage')
+  // 根据是否传物品卖出状态来判断获取我发布的全部物品和卖出的物品
+  if (reqData.goodsStatus) {
+    // 传了状态说明查询我卖出的
+    // 状态分为待审核wait_verify
+    // 审核通过pass_verify
+    // 审核未通过not_verify
+    // 已出售be_sale
+    await GoodsMessage.find({ publisherId: reqData.publisherId, goodsStatus: reqData.goodsStatus }).then(res => {
+      if (res.length) {
+        ctx.body = {
+          code: 1,
+          data: res
+        }
+      } else {
+        ctx.body = {
+          code: 0,
+          data: res
+        }
+      }
+    }).catch(err => {
+      ctx.body = {
+        code: 0,
+        data: res
+      }
+    })
+  } else {
+    // 没有传状态说明是查询全部
+    await GoodsMessage.find({ publisherId: reqData.publisherId }).then(res => {
+      if (res.length) {
+        ctx.body = {
+          code: 1,
+          data: res
+        }
+      } else {
+        ctx.body = {
+          code: 0,
+          data: res
+        }
+      }
+    }).catch(err => {
+      ctx.body = {
+        code: 0,
+        data: res
+      }
+    })
+  }
+})
 
 
 module.exports = router
