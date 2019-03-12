@@ -58,7 +58,7 @@ router.post('/getGoodsByCategoryId', async ctx => {
   }
 })
 
-// 猜你喜欢，目前只是随机出现2个
+// 猜你喜欢，目前只是随机出现2个，如果未登录不会请求接口
 router.post('/getUserLove', async ctx => {
   const GoodsMessage = mongoose.model('GoodsMessage')
   await GoodsMessage.find({goodsStatus: 'pass_verify'}).populate('publisherId').then(res => {
