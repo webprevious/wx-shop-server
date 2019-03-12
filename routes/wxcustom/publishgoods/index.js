@@ -176,7 +176,7 @@ router.post('/getMyPublishOrSale', async ctx => {
   }
 })
 
-// 取得登陆者买到的接口
+// 登陆者买到的接口
 router.post('/getMyBuy', async ctx => {
   let GoodsMessage = mongoose.model('GoodsMessage')
   let reqData = ctx.request.body
@@ -192,8 +192,6 @@ router.post('/getMyBuy', async ctx => {
     }
   })
 })
-
-
 
 module.exports = router
 
