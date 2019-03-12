@@ -5,7 +5,6 @@ const mongoose = require('mongoose')
 router.post('/storeGoods', async ctx => {
   let reqData = ctx.request.body
   let GoodsStore = mongoose.model('GoodsStore')
-  // 
   await GoodsStore.findOne({ goodsId: reqData.goodsId, storeMan: reqData.storeMan }).then(async res => {
     // 如果有值说明之前有记录，只需要将传过来的确认收藏或者取消收藏更新即可
     if (res) {
@@ -47,6 +46,23 @@ router.post('/storeGoods', async ctx => {
 router.post('/judgeStore', async ctx => {
   let GoodsStore = mongoose.model('GoodsStore')
   await GoodsStore.findOne({ goodsId: reqData.goodsId, storeMan: reqData.storeMan }).then(res => {
+    ctx.body = {
+      code: 1,
+      data: res
+    }
+  }).catch(err => {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
+  })
+})
+
+// 获取用户收藏列表
+router.post('/storeList', async ctx => {
+  let GoodsStore = mongoose.model('GoodsStore')
+  let reqData = ctx.request.body
+  await GoodsStore.find({ storeMan: reqData.storeMan }).populate('goodsId').then(res => {
     ctx.body = {
       code: 1,
       data: res
