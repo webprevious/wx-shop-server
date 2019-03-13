@@ -126,7 +126,7 @@ router.post('/getMyPublishOrSale', async ctx => {
     // 审核通过pass_verify
     // 审核未通过not_verify
     // 已出售be_sale
-    await GoodsMessage.find({ publisherId: reqData.publisherId, goodsStatus: reqData.goodsStatus }).then(res => {
+    await GoodsMessage.find({ publisherId: reqData.publisherId, goodsStatus: reqData.goodsStatus }).populate('publisherId').then(res => {
       if (res.length) {
         ctx.body = {
           code: 1,
@@ -146,7 +146,7 @@ router.post('/getMyPublishOrSale', async ctx => {
     })
   } else {
     // 没有传状态说明是查询全部
-    await GoodsMessage.find({ publisherId: reqData.publisherId }).then(res => {
+    await GoodsMessage.find({ publisherId: reqData.publisherId }).populate('publisherId').then(res => {
       if (res.length) {
         ctx.body = {
           code: 1,
@@ -171,7 +171,7 @@ router.post('/getMyPublishOrSale', async ctx => {
 router.post('/getMyBuy', async ctx => {
   let GoodsMessage = mongoose.model('GoodsMessage')
   let reqData = ctx.request.body
-  await GoodsMessage.find({goodsBuyer: reqData.userId}).then(res => {
+  await GoodsMessage.find({goodsBuyer: reqData.userId}).populate('publisherId').then(res => {
     ctx.body = {
       code: 1,
       data: res
