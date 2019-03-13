@@ -5,7 +5,7 @@ let GoodsStoreSchema = new Schema({
   storeMan: { type: String, required: true, ref: 'User' },
   goodsId: { type: String, required: true, ref: 'GoodsMessage' },
   isStore: { type: Boolean, required: true },
-  buyAt: { type: Date, default: Date.now() }
+  storeAt: { type: Date, default: Date.now() }
 })
 
 mongoose.model('GoodsStore', GoodsStoreSchema)

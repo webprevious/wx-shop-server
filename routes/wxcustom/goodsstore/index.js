@@ -45,6 +45,7 @@ router.post('/storeGoods', async ctx => {
 // 判断某人对某商品是否收藏
 router.post('/judgeStore', async ctx => {
   let GoodsStore = mongoose.model('GoodsStore')
+  let reqData = ctx.request.body
   await GoodsStore.findOne({ goodsId: reqData.goodsId, storeMan: reqData.storeMan }).then(res => {
     ctx.body = {
       code: 1,
@@ -62,7 +63,7 @@ router.post('/judgeStore', async ctx => {
 router.post('/storeList', async ctx => {
   let GoodsStore = mongoose.model('GoodsStore')
   let reqData = ctx.request.body
-  await GoodsStore.find({ storeMan: reqData.storeMan }).populate('goodsId').then(res => {
+  await GoodsStore.find({ storeMan: reqData.storeMan }).populate({path: 'goodsId', populate: { path: 'publisherId'}}).then(res => {
     ctx.body = {
       code: 1,
       data: res
