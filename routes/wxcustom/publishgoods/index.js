@@ -96,11 +96,21 @@ router.post('/buyGoods', async ctx => {
     res.goodsBuyer = reqData.buyer
     res.goodsStatus = 'be_sale'
     res.buyAt =  Date.now()
-    await res.save().then(res => {
-      ctx.body = {
-        code: 1,
-        data: res
-      }
+    await res.save().then(async result => {
+      // 购买成功，保存收货信息
+      let ExpressAddress = mongoose.model('ExpressAddress')
+      await ExpressAddress.create(reqData).then(res => {
+        ctx.body = {
+          code: 1,
+          data: res,
+          dataExpress: result
+        }
+      }).catch(err => {
+        ctx.body = {
+          code: 0,
+          data: err
+        }
+      })
     }).catch(err => {
       ctx.body = {
         code: 0,
