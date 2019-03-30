@@ -5,7 +5,8 @@ let ObjectId = Schema.Types.ObjectId
 const CategorySchema = new Schema({
   AdCarouselId: ObjectId,
   title: String,
-  createAt: { type: Date, default: Date.now() }
+  isActive: {type: Boolean, default: true},
+  createAt: {type: Date, default: Date.now()}
 })
 
 mongoose.model('GoodsCategory', CategorySchema)
