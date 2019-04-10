@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 router.get('/getGoodsCateory', async (ctx, next) => {
   // 获取modle
   const GoodsCategory = mongoose.model('GoodsCategory')
-  await GoodsCategory.find().then((res) => {
+  await GoodsCategory.find({isActive: true}).then((res) => {
     ctx.body = {
       code: 1,
       data: res
