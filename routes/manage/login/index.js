@@ -9,10 +9,15 @@ router.post('/manLogin', async ctx => {
     console.log(res)
     // 如果用户名不存在，那么res为null
     if (res) {
+      // 判断账号是否是激活状态
+      if (!res.isActive) {
+        return ctx.body = {
+          code: 0,
+          data: '账户被禁用，请联系管理员'
+        }
+      }
       // 判断密码是否正确
       if (res.password === reqData.password) {
-        delete res.password
-        console.log(res)
         ctx.body = {
           code: 1,
           data: {
