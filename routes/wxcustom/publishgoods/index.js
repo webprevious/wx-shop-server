@@ -194,6 +194,30 @@ router.post('/getMyBuy', async ctx => {
   })
 })
 
+// 搜索接口，模糊查询
+router.post('/search', async ctx => {
+  const GoodsMessage = mongoose.model('GoodsMessage')
+  let reqData = ctx.request.body
+  await GoodsMessage.find({goodsTitle: {'$regex': reqData.keyword},goodsStatus: 'pass_verify'}).populate('publisherId').then(res => {
+    if (res.length) {
+      ctx.body = {
+        code: 1,
+        data: res
+      }
+    } else {
+      ctx.body = {
+        code: 0,
+        data: res
+      }
+    }
+  }).catch(err => {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
+  })
+})
+
 module.exports = router
 
 

@@ -24,11 +24,15 @@ router.post('/getGoodsByCategoryId', async ctx => {
   const GoodsMessage = mongoose.model('GoodsMessage')
   // 如果是1那就是请求推荐
   // 获取推荐tab下的物品，目前没有加入算法和复杂计算，只是找出数据库中所有数据
+  let currentPage = Number(reqData.currentPage) - 1
+  let pageSize = Number(reqData.pageSize)
   if (reqData.goodsCategoryId === '1') {
-    await GoodsMessage.find({goodsStatus: 'pass_verify'}).populate('publisherId').then(res => {
+    let total = await GoodsMessage.find({goodsStatus: 'pass_verify'}).count()
+    await GoodsMessage.find({goodsStatus: 'pass_verify'}).skip(currentPage * pageSize).limit(pageSize).populate('publisherId').then(res => {
       ctx.body = {
         code: 1,
-        data: res
+        data: res,
+        total
       }
     }).catch(err => {
       ctx.body = {
@@ -37,11 +41,13 @@ router.post('/getGoodsByCategoryId', async ctx => {
       }
     })
   } else {
-    await GoodsMessage.find({goodsCategoryId: reqData.goodsCategoryId, goodsStatus: 'pass_verify'}).populate('publisherId').then(res => {
+    let total = await GoodsMessage.find({goodsCategoryId: reqData.goodsCategoryId, goodsStatus: 'pass_verify'}).count()
+    await GoodsMessage.find({goodsCategoryId: reqData.goodsCategoryId, goodsStatus: 'pass_verify'}).skip(currentPage * pageSize).limit(pageSize).populate('publisherId').then(res => {
       if (res) {
         ctx.body = {
           code: 1,
-          data: res
+          data: res,
+          total
         }
       } else {
         ctx.body = {
@@ -79,30 +85,6 @@ router.post('/getUserLove', async ctx => {
         code: 1,
         data: result
       }
-    }
-  })
-})
-
-// 搜索接口，模糊查询
-router.post('/search', async ctx => {
-  const GoodsMessage = mongoose.model('GoodsMessage')
-  let reqData = ctx.request.body
-  await GoodsMessage.find({goodsTitle: {'$regex': reqData.keyword},goodsStatus: 'pass_verify'}).populate('publisherId').then(res => {
-    if (res.length) {
-      ctx.body = {
-        code: 1,
-        data: res
-      }
-    } else {
-      ctx.body = {
-        code: 0,
-        data: res
-      }
-    }
-  }).catch(err => {
-    ctx.body = {
-      code: 0,
-      data: err
     }
   })
 })

@@ -1,7 +1,8 @@
 const router = require('koa-router')()
 const mongoose = require('mongoose')
 
-// 注册
+// 注册登录共用
+// update方法支持如果没有满足条件的就会直接插入一条记录
 router.post('/register', async (ctx, next) => {
   let reqData = ctx.request.body
   // 获取modle
@@ -19,7 +20,7 @@ router.post('/register', async (ctx, next) => {
   })
 })
 
-// 登录
+// 注册登录成功后获取用户信息
 router.get('/getUserInfo', async (ctx, next) => {
   // 获取modle
   const User = mongoose.model('User')

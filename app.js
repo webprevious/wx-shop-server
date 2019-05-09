@@ -6,7 +6,7 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const cors = require('koa2-cors')
-const { mongodb } = require('./mongo')
+const {mongodb} = require('./mongo')
 
 // 引入客户端微信小程序路由
 const wxUser = require('./routes/wxcustom/user/index')
