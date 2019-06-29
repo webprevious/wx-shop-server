@@ -28,7 +28,7 @@ router.post('/getGoodsByCategoryId', async ctx => {
   let pageSize = Number(reqData.pageSize)
   if (reqData.goodsCategoryId === '1') {
     let total = await GoodsMessage.find({goodsStatus: 'pass_verify'}).count()
-    await GoodsMessage.find({goodsStatus: 'pass_verify'}).skip(currentPage * pageSize).limit(pageSize).populate('publisherId').then(res => {
+    await GoodsMessage.find({goodsStatus: 'pass_verify'}).sort({_id: -1}).skip(currentPage * pageSize).limit(pageSize).populate('publisherId').then(res => {
       ctx.body = {
         code: 1,
         data: res,
@@ -42,7 +42,7 @@ router.post('/getGoodsByCategoryId', async ctx => {
     })
   } else {
     let total = await GoodsMessage.find({goodsCategoryId: reqData.goodsCategoryId, goodsStatus: 'pass_verify'}).count()
-    await GoodsMessage.find({goodsCategoryId: reqData.goodsCategoryId, goodsStatus: 'pass_verify'}).skip(currentPage * pageSize).limit(pageSize).populate('publisherId').then(res => {
+    await GoodsMessage.find({goodsCategoryId: reqData.goodsCategoryId, goodsStatus: 'pass_verify'}).sort({_id: -1}).skip(currentPage * pageSize).limit(pageSize).populate('publisherId').then(res => {
       if (res) {
         ctx.body = {
           code: 1,

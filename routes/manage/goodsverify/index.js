@@ -27,7 +27,7 @@ router.get('/manGetWaitViewList', async ctx => {
   // 根据有无关键字判断是否为搜索
   if (keyword) {
     let total = await GoodsMessage.find({goodsTitle: {'$regex': keyword}}).count()
-    await GoodsMessage.find({goodsTitle: {'$regex': keyword}, goodsStatus: 'wait_verify'}).skip(currentPage * pageSize).limit(pageSize).populate('publisherId').then(result => {
+    await GoodsMessage.find({goodsTitle: {'$regex': keyword}, goodsStatus: 'wait_verify'}).sort({_id: -1}).skip(currentPage * pageSize).limit(pageSize).populate('publisherId').then(result => {
       ctx.body = {
         code: 1,
         data: result,
@@ -41,7 +41,7 @@ router.get('/manGetWaitViewList', async ctx => {
     })
   } else {
     let total = await GoodsMessage.find({goodsStatus: 'wait_verify'}).count()
-    await GoodsMessage.find({goodsStatus: 'wait_verify'}).skip(currentPage * pageSize).limit(pageSize).populate('publisherId').then(result => {
+    await GoodsMessage.find({goodsStatus: 'wait_verify'}).sort({_id: -1}).skip(currentPage * pageSize).limit(pageSize).populate('publisherId').then(result => {
       ctx.body = {
         code: 1,
         data: result,
